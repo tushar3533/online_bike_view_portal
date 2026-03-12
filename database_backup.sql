@@ -580,3 +580,9 @@ ALTER TABLE ONLY public.booking
 
 \unrestrict WDiJ964bdr65QTf01aGMMTefOdv9gHuFcZ3EG8oPNJwjWfzSlEfDoDWkS3sQM6n
 
+CREATE TABLE offers(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    phone VARCHAR(20),
+    bike_id INT
+);

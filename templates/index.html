@@ -6,170 +6,217 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <style>
-        /* ===== Login Popup CSS ===== */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-        }
+<style>
 
-        .popup-box {
-            background: #fff;
-            width: 320px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 8px;
-            position: relative;
-        }
+/* ===== POPUP ===== */
+.popup{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+z-index:1000;
+}
 
-        .popup-box h2 {
-            text-align: center;
-            margin-bottom: 15px;
-        }
+.popup-box{
+background:#fff;
+width:320px;
+margin:100px auto;
+padding:20px;
+border-radius:10px;
+position:relative;
+animation:pop .3s ease;
+}
 
-        .popup-box input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-        }
+@keyframes pop{
+from{transform:scale(.7);opacity:0;}
+to{transform:scale(1);}
+}
 
-        .popup-box button {
-            width: 100%;
-            padding: 10px;
-            background: #ff5a5f;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+.popup-box input{
+width:100%;
+padding:10px;
+margin:8px 0;
+}
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            cursor: pointer;
-            font-size: 18px;
-            color: red;
-        }
+.popup-box button{
+width:100%;
+padding:10px;
+background:#ff4d30;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:6px;
+}
 
-        .switch {
-            text-align: center;
-            margin-top: 10px;
-            cursor: pointer;
-            color: blue;
-        }
-    </style>
+.close-btn{
+position:absolute;
+top:8px;
+right:12px;
+cursor:pointer;
+font-size:18px;
+color:red;
+}
+
+.switch{
+text-align:center;
+margin-top:10px;
+color:blue;
+cursor:pointer;
+}
+
+</style>
 </head>
 
 <body>
 
+<!-- ================= NAVBAR ================= -->
 <header class="navbar">
 
-    <div class="logo">
-        <span>🏍</span>
-        <span>BikePortal</span>
-    </div>
+<div class="logo">
+<span>🏍</span>
+<span>BikePortal</span>
+</div>
 
-    <div class="search-container">
-        <input type="text" placeholder="Search Bike or Scooters">
-    </div>
+<div class="search-container">
+<form action="/" method="GET">
+<input type="text" name="search" placeholder="Search Bike...">
+</form>
+</div>
 
-    <div class="nav-right">
-        <div class="language">English ▼</div>
-        <!-- CLICKABLE LOGIN -->
-        <div class="login" onclick="openLogin()">👤 Login / Register</div>
-    </div>
+<div class="nav-right">
+<div class="language">English ▼</div>
+<div class="login" onclick="openLogin()">👤 Login / Register</div>
+</div>
 
 </header>
 
-<!-- ===== LOGIN POPUP ===== -->
+<!-- ================= LOGIN ================= -->
 <div class="popup" id="loginPopup">
-    <div class="popup-box">
-        <span class="close-btn" onclick="closePopup()">✖</span>
-        <h2>Login</h2>
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <button>Login</button>
-        <div class="switch" onclick="openRegister()">New user? Register</div>
-    </div>
+<div class="popup-box">
+
+<span class="close-btn" onclick="closePopup()">✖</span>
+
+<form action="/login" method="POST">
+
+<h2>Login</h2>
+
+<input name="username" placeholder="Username" required>
+
+<input name="password" type="password" placeholder="Password" required>
+
+<button type="submit">Login</button>
+
+</form>
+
+<div class="switch" onclick="openRegister()">
+New user? Register
 </div>
 
-<!-- ===== REGISTER POPUP ===== -->
+</div>
+</div>
+
+<!-- ================= REGISTER ================= -->
 <div class="popup" id="registerPopup">
-    <div class="popup-box">
-        <span class="close-btn" onclick="closePopup()">✖</span>
-        <h2>Register</h2>
-        <input type="text" placeholder="Username">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button>Register</button>
-        <div class="switch" onclick="openLogin()">Already have account? Login</div>
-    </div>
+<div class="popup-box">
+
+<span class="close-btn" onclick="closePopup()">✖</span>
+
+<form action="/register" method="POST">
+
+<h2>Register</h2>
+
+<input name="username" placeholder="Username" required>
+
+<input name="email" type="email" placeholder="Email" required>
+
+<input name="password" type="password" placeholder="Password" required>
+
+<button type="submit">Register</button>
+
+</form>
+
+<div class="switch" onclick="openLogin()">
+Already have account? Login
 </div>
 
+</div>
+</div>
+
+<!-- ================= HERO ================= -->
 <section class="bike-section">
-    <div class="bike-content-box">
-        <h1>Find Your Perfect Bike</h1>
+<div class="bike-content-box">
 
-        <div class="search-bar">
-            <input type="text" placeholder="Search bikes by name, model...">
-            <button>Search</button>
-        </div>
+<h1>Find Your Perfect Bike</h1>
 
-        <div class="search-options">
-            <button>Search by Brand</button>
-            <button>Search by Budget</button>
-        </div>
-    </div>
+<div class="search-bar">
+<form action="/" method="GET">
+<input type="text" name="search" placeholder="Search bikes...">
+<button type="submit">Search</button>
+</form>
+</div>
+
+</div>
 </section>
 
-<!-- bike spotlight section -->
+<!-- ================= BIKES ================= -->
 <section class="spotlight-section">
 
-    <h2>Bikes in Spotlight</h2>
+<h2>Bikes in Spotlight</h2>
 
-    <div class="spotlight-frame">
-        <div class="bike-cards">
+<div class="spotlight-frame">
+<div class="bike-cards">
 
-            {% for bike in bikes %}
-            <div class="bike-card">
-                <img src="{{ url_for('static', filename='images/' + bike[3]) }}">
-                <h3>{{ bike[1] }}</h3>
-                <p>₹{{ bike[2] }} Onwards</p>
-                <button class="offer-btn">Get Offers</button>
-            </div>
-            {% endfor %}
+{% for bike in bikes %}
+<div class="bike-card">
 
-        </div>
-    </div>
+<img src="{{ url_for('static', filename='images/' ~ bike[3]) }}">    <!--Ye wali line mai error find karra . showing issue in displaying bike images -->
+
+<h3>{{ bike[1] }}</h3>
+
+<p>₹{{ bike[2] }} Onwards</p>
+
+<a href="/offer/{{ bike[0] }}">
+<button class="offer-btn">
+Get Offers
+</button>
+</a>
+
+</div>
+{% endfor %}
+
+</div>
+</div>
 
 </section>
 
-<!-- ===== JS ===== -->
+<!-- ================= JS ================= -->
 <script>
-function openLogin() {
-    document.getElementById("loginPopup").style.display = "block";
-    document.getElementById("registerPopup").style.display = "none";
+
+function openLogin(){
+document.getElementById("loginPopup").style.display="block";
+document.getElementById("registerPopup").style.display="none";
 }
 
-function openRegister() {
-    document.getElementById("registerPopup").style.display = "block";
-    document.getElementById("loginPopup").style.display = "none";
+function openRegister(){
+document.getElementById("registerPopup").style.display="block";
+document.getElementById("loginPopup").style.display="none";
 }
 
-function closePopup() {
-    document.getElementById("loginPopup").style.display = "none";
-    document.getElementById("registerPopup").style.display = "none";
+function closePopup(){
+document.getElementById("loginPopup").style.display="none";
+document.getElementById("registerPopup").style.display="none";
 }
+
+/* click outside close */
+window.onclick=function(e){
+if(e.target.classList.contains("popup")){
+closePopup();
+}
+}
+
 </script>
-
-<!--shahid khan -->
 
 </body>
 </html>
-
